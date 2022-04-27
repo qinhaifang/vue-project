@@ -1,0 +1,17 @@
+$menuBg:#01AD83;
+$menuHover:rgba(255,255,255,0.3);
+
+$menuText:#fff;
+$menuActiveText:#fff;
+$subMenuActiveText:#fff; 
+
+$subMenuBg:transparent;
+$subMenuHover:transparent;
+
+:export{
+    menuBg:$menuBg;
+    menuText:$menuText;
+    menuActiveText:$menuActiveText;
+    subMenuActiveText:$subMenuActiveText; 
+    menuHover:$menuHover
+}
