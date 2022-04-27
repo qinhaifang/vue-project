@@ -23,7 +23,7 @@ export default {
     },
     height: {
       type: Number,
-      default: 140
+      default: 230
     },
     chartConfig: {
       type: Object,

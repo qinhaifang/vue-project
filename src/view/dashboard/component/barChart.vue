@@ -10,7 +10,7 @@
 <script>
 import * as echarts from "echarts";
 import "@/global/utils/chart.resize";
-const colorList = ["#205DDB", "#1BDFFC"];
+const colorList = ["#00cb9a", "#2678eb"];
 export default {
   props: {
     lazyResize: {
@@ -23,7 +23,7 @@ export default {
     },
     height: {
       type: Number,
-      default: 160
+      default: 180
     },
     chartConfig: {
       type: Object,
@@ -73,7 +73,15 @@ export default {
       if (!this.chartConfig) return;
       this.option = {
         tooltip: {
-          trigger: "axis"
+          trigger: "axis",
+          backgroundColor: "rgba(50,50,50,0.7)",
+          borderColor: "#333",
+          textStyle: {
+            color: "#fff",
+            fontSize: 12,
+            fontWeight: "normal",
+            fontFamily: "sans-serif"
+          }
         },
         grid: {
           containLabel: true,
@@ -175,7 +183,7 @@ export default {
                   textStyle: {
                     color: "#fff"
                   },
-                  position: "left",
+                  position: "insideTop",
                   formatter: function(p) {
                     return p.value > 0 ? p.value : "";
                   }

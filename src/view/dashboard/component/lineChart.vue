@@ -10,6 +10,57 @@
 <script>
 import * as echarts from "echarts";
 import "@/global/utils/chart.resize";
+const colorList = ["#008CF9", "#72FFBD", "#FFF8A4", "#DF9B58"];
+const areaColor = [
+  {
+    color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
+      {
+        offset: 0,
+        color: "rgba(0,140,249,0)"
+      },
+      {
+        offset: 1,
+        color: "rgba(0,140,249,.4)"
+      }
+    ]) //渐变色
+  },
+  {
+    color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
+      {
+        offset: 0,
+        color: "rgba(114, 255, 189,0)"
+      },
+      {
+        offset: 1,
+        color: "rgba(114, 255, 189,.4)"
+      }
+    ]) //渐变色
+  },
+  {
+    color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
+      {
+        offset: 0,
+        color: "rgba(255, 248, 164,0)"
+      },
+      {
+        offset: 1,
+        color: "rgba(255, 248, 164, .4)"
+      }
+    ]) //渐变色
+  },
+  {
+    color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
+      {
+        offset: 0,
+        color: "rgba(223, 155, 88,0)"
+      },
+      {
+        offset: 1,
+        color: "rgba(223, 155, 88, .4)"
+      }
+    ]) //渐变色
+  }
+];
 var timer = null;
 export default {
   props: {
@@ -23,7 +74,7 @@ export default {
     },
     height: {
       type: Number,
-      default: 140
+      default: 180
     },
     chartConfig: {
       type: Object,
@@ -68,6 +119,34 @@ export default {
       var that = this;
       if (!that.chartConfig) return;
       this.option = {
+        color: ["#008CF9", "#72FFBD", "#FFF8A4", "#DF9B58"],
+        // 鼠标移上去显示
+        tooltip: {
+          trigger: "axis",
+          backgroundColor: "rgba(50,50,50,0.7)",
+          borderColor: "#333",
+          textStyle: {
+            color: "#fff",
+            fontSize: 12,
+            fontWeight: "normal",
+            fontFamily: "sans-serif"
+          }
+        },
+        legend: {
+          right: 20,
+          icon: "circle",
+          align: "left",
+          itemGap: 20,
+          itemWidth: 10,
+          itemStyle: {
+            // color: "#fff"
+          },
+          textStyle: {
+            color: "#fff",
+            fontSize: 12
+          },
+          data: that.chartConfig.legend
+        },
         grid: {
           containLabel: true,
           left: 12,
@@ -140,47 +219,46 @@ export default {
             data: []
           }
         ],
-        series: [
-          {
-            name: "123",
-            type: "line",
-            data: that.chartConfig.yData,
-            barWidth: 6,
-            itemStyle: {
-              normal: {
-                color: "rgba(0, 214, 237, 1)",
-                barBorderRadius: [10, 10, 10, 10]
-              }
-            },
-            areaStyle: {
-              //折线图覆盖面积
-              color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [
-                {
-                  offset: 0,
-                  color: "rgba(0, 0, 0, 0)"
-                },
-                {
-                  offset: 1,
-                  color: "rgba(0, 214, 237, 0.69)"
-                }
-              ]) //渐变色
-            }
-          }
-        ]
+        series: []
       };
-      var startNumber = 0;
-      var xAxisDatalen = that.chartConfig.yData.length;
-      var len = 5; //这里请注意
-      timer && clearInterval(timer);
-      timer = setInterval(function() {
-        if (startNumber === xAxisDatalen - len) {
-          startNumber = 0;
-        }
-        that.option.dataZoom[0].startValue = startNumber;
-        that.option.dataZoom[0].endValue = startNumber + len;
-        startNumber++;
-        that.refreshChart();
-      }, 2000);
+      that.chartConfig.data.map((item, index) => {
+        that.option.series.push({
+          name: that.chartConfig.legend ? that.chartConfig.legend[index] : "",
+          type:
+            that.chartConfig.type === "lineBar"
+              ? index === 0
+                ? "line"
+                : "bar"
+              : "line",
+          // 区分柱状图和折线图
+          colorBy: "series", //按照系列分配调色盘中的颜色，同一系列中的所有数据都是用相同的颜色；
+          barWidth: 18,
+          smooth: that.chartConfig.smooth,
+          data: item,
+          itemStyle: {
+            normal: {
+              color: colorList[index]
+            }
+          },
+          areaStyle: areaColor[index]
+        });
+      });
+      // 判断单条数据超过6自动向右移动
+      if (that.chartConfig.data.length === 1) {
+        var startNumber = 0;
+        var xAxisDatalen = that.chartConfig.data[0].length;
+        var len = 5; //设置超出的数据量
+        timer && clearInterval(timer);
+        timer = setInterval(function() {
+          if (startNumber === xAxisDatalen - len) {
+            startNumber = 0;
+          }
+          that.option.dataZoom[0].startValue = startNumber;
+          that.option.dataZoom[0].endValue = startNumber + len;
+          startNumber++;
+          that.refreshChart();
+        }, 2000);
+      }
     }
   }
 };
