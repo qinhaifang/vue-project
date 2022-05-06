@@ -22,7 +22,7 @@ export const constantRouterMap = [
   {
     path: "",
     component: Layout,
-    redirect: "/index/index",
+    redirect: "/table/tableStand",
     hidden: true
   },
   {
@@ -81,13 +81,13 @@ export const asyncRouterMap = [
     },
     children: [
       {
-        path: "table1",
+        path: "tableStand",
         meta: {
-          title: "表格1",
+          title: "标准表格",
           icon: "icondashboard",
           routerType: "leftmenu"
         },
-        component: () => import("@/view/table/table1/index")
+        component: () => import("@/view/table/tableStand/index")
       },
       {
         path: "table2",

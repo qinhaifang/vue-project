@@ -17,6 +17,18 @@ service.interceptors.request.use(
         Authorization: "Token " + getToken("Token") //携带权限参数
       };
     }
+    if (config.method === "post") {
+      config = Object.assign(config, {
+        method: "post",
+        data: config.data || config.params,
+        params: undefined
+      });
+    } else {
+      config = Object.assign(config, {
+        method: "get",
+        params: config.data
+      });
+    }
     return config;
   },
   error => {

@@ -8,13 +8,13 @@ const requireComponent = require.context(
   // 匹配基础组件文件名的正则表达式
   /index.vue/
 );
-
+const resultArr = [];
 requireComponent.keys().forEach(fileName => {
   // 获取组件配置
   const componentConfig = requireComponent(fileName);
   // 获取组件的 PascalCase 命名
   const componentName = fileName.split("/")[1];
-
+  resultArr.push(componentConfig.default);
   // 全局注册组件
   Vue.component(
     componentName,
@@ -24,3 +24,4 @@ requireComponent.keys().forEach(fileName => {
     componentConfig.default || componentConfig
   );
 });
+export default resultArr;

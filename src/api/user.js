@@ -22,3 +22,11 @@ export function getUserInfo(params) {
     data: params
   });
 }
+
+export function getUserList(reqData) {
+  return request({
+    url: "/user/list/get",
+    method: "get",
+    data: reqData
+  });
+}

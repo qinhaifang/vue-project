@@ -93,15 +93,16 @@ export default {
   },
   /**
    * 获取用户列表
-   * 要带参数 name, page, limt; name可以不填, page,limit有默认值。
-   * @param name, page, limit
+   * 要带参数 name, pageSize, pageNumber; name可以不填, pageSize, pageNumber有默认值。
+   * @param name, pageSize, pageNumber
    * @return {{code: number, count: number, data: *[]}}
    */
   getUserList: config => {
-    const { limit, page } = JSON.parse(config.body);
+    const { pageNumber, pageSize } = JSON.parse(config.body);
     let mockList = List;
     const userList = mockList.filter(
-      (item, index) => index < limit * page && index >= limit * (page - 1)
+      (item, index) =>
+        index < pageSize * pageNumber && index >= pageSize * (pageNumber - 1)
     );
     return {
       code: 200,
