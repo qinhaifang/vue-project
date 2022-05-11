@@ -99,6 +99,27 @@ export const asyncRouterMap = [
         component: () => import("@/view/table/table2/index")
       }
     ]
+  },
+  {
+    path: "/date",
+    name: "date",
+    component: Layout,
+    meta: {
+      title: "日期",
+      icon: "icondashboard"
+    },
+    // noDropdown: true,
+    children: [
+      {
+        path: "date",
+        meta: {
+          title: "日期范围",
+          icon: "icondashboard",
+          routerType: "leftmenu"
+        },
+        component: () => import("@/view/date/index")
+      }
+    ]
   }
 ];
 
