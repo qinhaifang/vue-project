@@ -6,7 +6,7 @@
  * @FilePath: \vue-project\src\global\components\H-table\src\index.vue
 -->
 <template>
-  <div>
+  <div class="list-wrapper">
     <div class="table-wrapper" ref="table">
       <!-- table -->
       <el-table
@@ -48,14 +48,14 @@
           :page-sizes="tableConfig.pageSizes || [100, 200, 500]"
           :page-size="paginationSetting[listDataProps.pageSize]"
           :total="Number(totalCount)"
-          class="pagination-content"
-        />
-        <!-- v-bind="
+          v-bind="
             getMergedObject(tableConfig.extend, {
               layout: 'total, sizes, prev, pager, next, jumper',
               background: false
             })
-          " -->
+          "
+          class="pagination-content"
+        />
       </template>
     </div>
   </div>
@@ -175,6 +175,7 @@ export default {
     });
   },
   methods: {
+    getMergedObject,
     indexMethod(index) {
       index =
         index +
@@ -236,13 +237,6 @@ export default {
         .then(res => {
           this.loadingStatus = false;
           let list = [];
-          // if (!results) {
-          //   list = res || [];
-          // } else if (res[results]) {
-          //   list = res[results] || [];
-          //   const total = res[total];
-          //   if (total !== undefined) this.totalCount = total || 0;
-          // }
           this.tableData = res.data.userList;
           this.totalCount = res.data.total || 0;
         })
@@ -347,16 +341,15 @@ export default {
      */
     initTableHeight() {
       const { table, pagination } = this.$refs;
+
       // 窗口的高度
       const winHeight = window.innerHeight;
       // 主容器实际的距离顶部的高
       // getBoundingClientRect()用于获得页面中某个元素的左，上，右和下分别相对浏览器视窗的位置。
       // top,lef,right,bottom,width,height
-      const tableTop =
-        table.getBoundingClientRect().top + window.pageYOffset + 30;
+      const tableTop = table.getBoundingClientRect().top + window.pageYOffset;
       // 主容器样式
       const computedStyle = targetStyle(table);
-      console.log("computedStyle", computedStyle);
       // 主容器margin
       const tableMarginTop = toUnitNumber(computedStyle.marginTop);
       const tableMarginBottom = toUnitNumber(computedStyle.marginBottom);
@@ -508,4 +501,205 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import "../../../style/index.scss";
+.list-wrapper {
+  .table-wrapper {
+    .el-table__header .has-gutter th.is-leaf:nth-last-child(2) {
+      border-right: none;
+    }
+    .el-table {
+      overflow: auto;
+    }
+    .el-table::before {
+      height: 0;
+    }
+    .el-table--group::after,
+    .el-table--border::after {
+      height: 0;
+    }
+    .el-table__fixed::before,
+    .el-table__fixed-right::before {
+      height: 0;
+    }
+    //表格样式
+    .el-table {
+      .formBlock {
+        span {
+        }
+        .scopeHeaderInput {
+        }
+      }
+      .formInlineBlock {
+        display: flex;
+        align-items: center;
+        height: 45px;
+        span {
+          margin-right: 20px;
+        }
+        .scopeHeaderInput {
+          flex: 1;
+        }
+      }
+      .emptyImgBox {
+        padding: 20px;
+      }
+      .el-form-item {
+        margin-bottom: 0;
+      }
+      .el-input__inner {
+        height: 28px;
+        line-height: 28px;
+      }
+      .el-input-number {
+        line-height: 28px;
+      }
+      .el-input-number__decrease,
+      .el-input-number__increase {
+        width: 28px;
+      }
+      .list-operation {
+        .cell {
+          padding-right: 40px;
+        }
+      }
+      td,
+      th {
+        padding: 0;
+        height: 33px;
+      }
+      th {
+        background: #e9e9f5;
+        & {
+          border-right: 1px solid #d4d4d9;
+          border-bottom: 1px solid #d4d4d9;
+        }
+        & > .cell {
+          font-size: 14px;
+          color: #575d6c;
+        }
+      }
+      td {
+        & {
+          border-right: 0;
+        }
+        & > .cell {
+          font-size: 12px;
+          color: #666;
+        }
+      }
+      .ascending .sort-caret.ascending {
+        border-bottom-color: #000;
+      }
+      .descending .sort-caret.descending {
+        border-top-color: #000;
+      }
+      .sort-caret.ascending {
+        border-bottom-color: #999;
+      }
+      .sort-caret.descending {
+        border-top-color: #999;
+      }
+      .el-table__row {
+        border-bottom: 1px solid #efefef;
+        &:last-child {
+          .el-table__cell {
+            // border-bottom: 0;
+          }
+        }
+      }
+      .el-table__body tr.el-table__row--striped td.el-table__cell {
+        background-color: #efefef;
+      }
+      .el-table__body tr.hover-row.current-row > td,
+      .el-table__body tr.hover-row.el-table__row--striped.current-row > td,
+      .el-table__body tr.hover-row.el-table__row--striped > td,
+      .el-table__body tr.hover-row > td {
+        background-color: #d9f3ed;
+      }
+    }
+    .el-table .cell,
+    .el-table th div,
+    .el-table--border td:first-child .cell,
+    .el-table--border th:first-child .cell {
+      padding-left: 20px;
+      &.scopeHeaderInput {
+        padding-left: 0;
+      }
+    }
+    .el-table .cell,
+    .el-table th div {
+      padding-right: 20px;
+      &.scopeHeaderInput {
+        padding-right: 0;
+      }
+    }
+  }
+  //分页样式
+  .pagination-wrapper {
+    margin-top: 30px;
+    height: 28px;
+    .el-pagination {
+      display: flex;
+      justify-content: flex-end;
+      .el-input {
+        width: 77px;
+        .el-input__inner {
+          padding-right: 19px;
+          font-size: 12px;
+          height: 24px;
+          line-height: 24px;
+        }
+      }
+      .el-input__icon {
+        height: 24px;
+        line-height: 24px;
+      }
+      span:not([class*="suffix"]),
+      button {
+        min-width: 24px;
+        height: 24px;
+        line-height: 24px;
+      }
+      .el-pager li,
+      button {
+        min-width: 24px;
+        height: 24px;
+        line-height: 22px;
+        font-size: 12px;
+        border: 1px solid $--border-color-base;
+        color: #666;
+        border-radius: 2px;
+        margin-left: 8px;
+        &.active {
+          background: $--color-primary;
+          border: 1px solid $--color-primary;
+          color: #fff;
+        }
+      }
+      .btn-prev,
+      .btn-next {
+        padding: 0;
+      }
+      .el-pagination__sizes {
+        margin: 0;
+      }
+      .el-pagination__jump {
+        font-size: 12px;
+        margin-left: 10px;
+        .el-pagination__editor {
+          width: 34px;
+          height: 24px;
+          &.el-input {
+            margin: 0 8px;
+            .el-input__inner {
+              padding-right: 0;
+              padding-left: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+</style>

@@ -8,10 +8,16 @@ $subMenuActiveText:#fff;
 $subMenuBg:transparent;
 $subMenuHover:transparent;
 
+$--border-color-base:#ACB0B8 !default;
+$--color-primary:#01AD83 !default;
+$--color-danger:red;
+$-formlabel-background-color-base:yellow;
+
 :export{
     menuBg:$menuBg;
     menuText:$menuText;
     menuActiveText:$menuActiveText;
     subMenuActiveText:$subMenuActiveText; 
-    menuHover:$menuHover
+    menuHover:$menuHover,
+
 }

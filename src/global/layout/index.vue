@@ -37,7 +37,7 @@ export default {
     .content {
       position: relative;
       height: calc(100vh - 120px);
-      overflow: auto;
+      // overflow: auto;
       margin: 0px 30px;
       border-radius: 4px;
       padding: 20px;
