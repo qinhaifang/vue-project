@@ -85,6 +85,14 @@
                 </el-option>
               </el-select>
             </template>
+            <!-- autocomplete -->
+            <template v-else-if="type === 'autocomplete'">
+              <H-autocomplete
+                :searchConfig="materialConfig"
+                v-on:keyup.enter.native="materialConfig.extend.callback"
+                v-model="formParams[name]"
+              ></H-autocomplete>
+            </template>
           </template>
         </template>
       </div>
@@ -131,6 +139,16 @@ export default {
       type: "", // 组件类型
       name: "" // 组件唯一标识
     };
+  },
+  watch: {
+    formParams: {
+      handler() {
+        // 表单值发生变化时告知父元素
+        this.$emit("formParamsChange", this.formParams);
+        // this.setMaterialReadLabel();
+      },
+      deep: true
+    }
   },
   created() {
     const {

@@ -2,7 +2,7 @@
  * @Author: haifang.qin
  * @Date: 2022-04-27 09:57:33
  * @LastEditors: haifang.qin
- * @LastEditTime: 2022-04-29 11:43:38
+ * @LastEditTime: 2022-05-13 11:47:58
  * @FilePath: \vue-project\src\view\table\tableStand\index.vue
 -->
 <template>
@@ -14,7 +14,10 @@
           v-model="searchForm"
           :form-config="formConfig"
         ></H-form>
-        <el-button type="primary">查询</el-button>
+        <el-button type="primary" class="searchBtn" @click="handleSearch"
+          >查询</el-button
+        >
+        <el-button type="primary" class="searchBtn">重置</el-button>
       </div>
       <el-button type="primary">新增</el-button>
     </div>
@@ -22,10 +25,16 @@
   </div>
 </template>
 <script>
+import mixins from "@/view/mixins";
 export default {
+  mixins: [mixins],
   data() {
     return {
-      searchForm: {},
+      searchForm: {
+        status: "",
+        content: "",
+        searchHistoryParam: "user"
+      },
       // 搜索表单
       formConfig: {
         layout: "inlineBlock",
@@ -34,7 +43,7 @@ export default {
           {
             type: "select",
             label: "用户状态：",
-            width: 200,
+            width: 200, //设置输入框的大小
             labelWidth: "78px",
             name: "status",
             placeholder: "请选择状态",
@@ -64,11 +73,23 @@ export default {
             ]
           },
           {
-            type: "input",
-            label: "用户名称：",
+            type: "autocomplete",
             width: 200,
-            labelWidth: "78px",
-            name: "content"
+            labelWidth: "0",
+            name: "content",
+            http: {
+              url: "/user/info/get", // 接口路径
+              params: {
+                searchHistoryParam: "user", // 查询历史参数  给后台传的唯一值
+                content: "", // 传给后台得值
+                pageNumber: 10,
+                pageSize: 1
+              }
+            },
+            extend: {
+              placeholder: "请输入用户名称",
+              callback: this.handleSearch
+            }
           }
         ]
       },

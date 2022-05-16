@@ -48,6 +48,8 @@
               :extend="
                 materialConfig.extend ? materialConfig.extend : materialConfig
               "
+              @toggle="handleToggle"
+              @dependOnChange="dependOnChange"
             ></Form-meterial>
           </div>
         </template>
@@ -72,7 +74,15 @@ export default {
       formParams: {} //表单所有参数集合
     };
   },
-  watch: {},
+  watch: {
+    // 监听formParams表单值的改变
+    formParams: {
+      handler(val) {
+        this.$emit("input", val);
+      },
+      deep: true
+    }
+  },
   created() {},
   mounted() {},
   methods: {
@@ -146,6 +156,17 @@ export default {
         return false;
       }
       return true;
+    },
+    /**
+     * 当元组件发生变更，触发此函数
+     * @param {String} val 元组件变更后的值
+     * @param {Object} item 元组件配置
+     */
+    handleToggle(val, item) {
+      this.$emit("toggle-config", {
+        item,
+        value: val
+      });
     }
   }
 };
