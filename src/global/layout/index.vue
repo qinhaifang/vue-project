@@ -2,7 +2,7 @@
  * @Author: haifang.qin
  * @Date: 2022-04-01 11:36:36
  * @LastEditors: haifang.qin
- * @LastEditTime: 2022-04-27 16:00:43
+ * @LastEditTime: 2022-06-06 14:30:02
  * @FilePath: \vue-project\src\global\layout\index.vue
 -->
 <template>
@@ -37,7 +37,7 @@ export default {
     .content {
       position: relative;
       height: calc(100vh - 120px);
-      // overflow: auto;
+      overflow: auto;
       margin: 0px 30px;
       border-radius: 4px;
       padding: 20px;

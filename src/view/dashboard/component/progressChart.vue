@@ -61,7 +61,6 @@ export default {
       if (!this.chart) return false;
       this.chart.setOption(this.option || {}, true);
       this.chart.on("click", function(data) {
-        console.log(111, data);
         // this.$emit("handleClick", { stationType: data.name });
       });
       window.addEventListener("resize", () => {

@@ -6,6 +6,7 @@ import router from "./router";
 import store from "./store/";
 import "@/global";
 import hlElement from "./global";
+import "./../static/elementuiFont/icon.css";
 
 import ElementUI from "element-ui";
 Vue.use(ElementUI, { size: "mini" });

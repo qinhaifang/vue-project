@@ -120,6 +120,27 @@ export const asyncRouterMap = [
         component: () => import("@/view/date/index")
       }
     ]
+  },
+  {
+    path: "/earth",
+    name: "earth",
+    component: Layout,
+    meta: {
+      title: "地图",
+      icon: "icondashboard"
+    },
+    // noDropdown: true,
+    children: [
+      {
+        path: "earth1",
+        meta: {
+          title: "山西",
+          icon: "icondashboard",
+          routerType: "leftmenu"
+        },
+        component: () => import("@/view/earth/index")
+      }
+    ]
   }
 ];
 

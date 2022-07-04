@@ -108,6 +108,28 @@ export default {
           {
             name: "address",
             label: "地址"
+          },
+          {
+            name: "operation",
+            label: "操作",
+            type: "operation",
+            data: [
+              {
+                content: "查看",
+                icon: "iconchakan",
+                visibleIcon: true,
+                visibleTooltip: true,
+                clickEvent: this.userDetail
+              },
+              {
+                content: "删除",
+                icon: "iconshanchu",
+                visibleIcon: true,
+                visibleTooltip: true,
+                type: "danger",
+                clickEvent: this.userDel
+              }
+            ]
           }
         ],
         http: {

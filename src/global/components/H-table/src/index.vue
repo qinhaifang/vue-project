@@ -2,7 +2,7 @@
  * @Author: haifang.qin
  * @Date: 2022-04-28 09:32:32
  * @LastEditors: haifang.qin
- * @LastEditTime: 2022-05-05 14:26:53
+ * @LastEditTime: 2022-06-06 14:41:50
  * @FilePath: \vue-project\src\global\components\H-table\src\index.vue
 -->
 <template>
@@ -18,9 +18,35 @@
       >
         <!--序号列: 默认是有序号的-->
         <el-table-column type="index" label="序号" width="80" />
-        <!-- 常规显示 -->
+
         <template v-if="Array.isArray(tableColumnData)">
           <template v-for="item in tableColumnData">
+            <!--操作列-->
+            <template v-if="item && item.type === 'operation'">
+              <el-table-column
+                :key="item.name"
+                :prop="item.name"
+                :label="item.label"
+                :width="item.width || getOpertionWidth(item.data)"
+                v-bind="
+                  getMergedObject(item.extend, {
+                    fixed: 'right',
+                    align: 'left'
+                  })
+                "
+                class-name="list-operation"
+              >
+                <template slot-scope="scope">
+                  <div class="table-btn-wrapper">
+                    <hl-button
+                      :tableRow="scope.row"
+                      :buttonConfig="item.data"
+                    ></hl-button>
+                  </div>
+                </template>
+              </el-table-column>
+            </template>
+            <!-- 常规显示 -->
             <recursive-title
               :key="item.name"
               v-bind="{
@@ -183,6 +209,11 @@ export default {
         (this.paginationSetting[this.listDataProps.pageNumber] - 1) *
           this.paginationSetting[this.listDataProps.pageSize];
       return index;
+    },
+    //获取操作列的宽度
+    getOpertionWidth(arr) {
+      if (!Array.isArray(arr)) return false;
+      return arr.length * 14 + 20 + 40 + (arr.length - 1 || 1) * 20;
     },
     initRowConfig() {
       if (Array.isArray(this.tableData)) {
@@ -363,7 +394,7 @@ export default {
         parantsOffterBottom += this.tableConfig.autoHeight;
       }
       // 获得分页的高度
-      let paginationHeight = 0;
+      let paginationHeight = 2;
       if (pagination) {
         const paginationStyle = targetStyle(pagination);
         paginationHeight += pagination.clientHeight || 0;
@@ -389,7 +420,6 @@ export default {
         // 设置最低的表格滚动高度200，或者配置的minHeight。
         this.maxHeight = initMinHeight;
       }
-      console.log(this.maxHeight, "this.maxHeight");
     },
     /**
      * 父级的节点下内外边距

@@ -2,7 +2,7 @@
  * @Author: haifang.qin
  * @Date: 2022-04-27 11:09:52
  * @LastEditors: haifang.qin
- * @LastEditTime: 2022-04-27 16:16:11
+ * @LastEditTime: 2022-06-06 14:42:45
  * @FilePath: \vue-project\src\view\dashboard\component\progressTwoChart.vue
 -->
 <template>
@@ -72,7 +72,6 @@ export default {
       this.chart = echarts.init(this.$refs.lineChart);
     },
     initData() {
-      console.log(this.chartConfig, 888);
       if (!this.chartConfig) return;
       this.option = {
         xAxis: {
