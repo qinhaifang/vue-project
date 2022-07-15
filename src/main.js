@@ -12,6 +12,9 @@ import ElementUI from "element-ui";
 Vue.use(ElementUI, { size: "mini" });
 import("element-ui/lib/theme-chalk/index.css");
 
+import Carousel3d from "vue-carousel-3d";
+Vue.use(Carousel3d);
+
 import "@/permission"; // permission control
 import "@/mockjs"; // mock数据
 

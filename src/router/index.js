@@ -141,6 +141,27 @@ export const asyncRouterMap = [
         component: () => import("@/view/earth/index")
       }
     ]
+  },
+  {
+    path: "/lunbo",
+    name: "lunbo",
+    component: Layout,
+    meta: {
+      title: "轮播",
+      icon: "icondashboard"
+    },
+    // noDropdown: true,
+    children: [
+      {
+        path: "lunbo1",
+        meta: {
+          title: "轮播",
+          icon: "icondashboard",
+          routerType: "leftmenu"
+        },
+        component: () => import("@/view/lunbo/index")
+      }
+    ]
   }
 ];
 

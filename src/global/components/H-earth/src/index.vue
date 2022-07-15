@@ -129,7 +129,6 @@ export default {
             coordinateSystem: "geo",
             data: [[409.6, 80.1, "01121400000014"]],
             renderItem: function(params, api) {
-              console.log("参数", params, api);
               let coords = [409.6, 80.1, "01121400000014"];
               return {
                 type: "group",
@@ -165,6 +164,48 @@ export default {
                 ]
               };
             }
+          },
+          {
+            type: "scatter", //effectScatter,scatter
+            z: 4,
+            coordinateSystem: "geo",
+            data: [[409.6, 80.1, "01121400000014"]],
+            label: {
+              normal: {
+                show: true,
+                formatter: function(params) {
+                  // var name = params.name;
+                  // var value = params.data.datas;
+                  var text = "hahah";
+                  return text;
+                },
+                color: "#fff",
+                rich: {
+                  fline: {
+                    padding: [0, 25],
+                    color: "#fff",
+                    textShadowColor: "#030615",
+                    textShadowBlur: "0",
+                    textShadowOffsetX: 1,
+                    textShadowOffsetY: 1,
+                    fontSize: 14,
+                    fontWeight: 400
+                  },
+                  tline: {
+                    padding: [0, 27],
+                    color: "#ABF8FF",
+                    fontSize: 12
+                  }
+                }
+              },
+              emphasis: {}
+            },
+            itemStyle: {
+              color: "#00FFF6"
+            },
+            symbol: "../../../../assets/errorImg/404_cloud.png",
+            symbolSize: [100, 50],
+            symbolOffset: [0, -60]
           }
         ]
       };
