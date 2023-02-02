@@ -2,7 +2,7 @@
  * @Author: haifang.qin
  * @Date: 2022-04-01 11:42:47
  * @LastEditors: haifang.qin
- * @LastEditTime: 2022-04-27 16:34:21
+ * @LastEditTime: 2023-02-02 17:21:31
  * @FilePath: \vue-project\src\view\dashboard\index.vue
 -->
 <template>
@@ -38,10 +38,10 @@
       <el-col :span="12">
         <div>
           <div class="isFlex justifyContentSpaceBetween">
-            <H-title title="面积图"></H-title>
+            <H-title title="markLine图"></H-title>
             <el-button @click="lookDetail" type="text">查看详情</el-button>
           </div>
-          <line-chart :chartConfig="lineChartDatas"></line-chart>
+          <line-charts :chartConfig="markLineData"></line-charts>
         </div>
       </el-col>
       <el-col :span="12">
@@ -102,17 +102,36 @@
           <pie-chart :chartConfig="pieDatas"></pie-chart>
         </div>
       </el-col>
+      <el-col :span="12">
+        <div>
+          <div class="isFlex justifyContentSpaceBetween">
+            <H-title title="markLineJs图"></H-title>
+            <el-button @click="lookDetail" type="text">查看详情</el-button>
+          </div>
+          <markline-chart :chartConfig="markLineData"></markline-chart>
+        </div>
+      </el-col>
     </el-row>
   </div>
 </template>
 <script>
 import LineChart from "./component/lineChart.vue";
+import LineCharts from "./component/lineCharts.vue";
+import MarklineChart from "./component/marklineChart.vue";
 import ProgressChart from "./component/progressChart.vue";
 import ProgressChart2 from "./component/progressTwoChart.vue";
 import BarChart from "./component/barChart.vue";
 import pieChart from "./component/pieChart.vue";
 export default {
-  components: { LineChart, ProgressChart, ProgressChart2, BarChart, pieChart },
+  components: {
+    LineChart,
+    LineCharts,
+    MarklineChart,
+    ProgressChart,
+    ProgressChart2,
+    BarChart,
+    pieChart
+  },
   data() {
     return {
       lineChartData: {
@@ -127,7 +146,17 @@ export default {
           [10, 0, 20, 0, 60, 10, 10],
           [10, 30, 0, 50, 40, 60, 10]
         ],
-        legend: ["晴天", "阴天"],
+        legend: ["晴天"],
+        unit: "数量",
+        smooth: true //是否平滑
+      },
+      markLineData: {
+        xData: ["一月", "二月", "三月", "四月", "五月", "六月"],
+        data: [
+          [10, 30, 20, 50, 60, 10, 10],
+          [10, 30, 40, 50, 40, 60, 10]
+        ],
+        legend: ["晴天", "雨天"],
         unit: "数量",
         smooth: true //是否平滑
       },
