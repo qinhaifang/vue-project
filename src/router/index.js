@@ -162,6 +162,48 @@ export const asyncRouterMap = [
         component: () => import("@/view/lunbo/index")
       }
     ]
+  },
+  {
+    path: "/upload",
+    name: "upload",
+    component: Layout,
+    meta: {
+      title: "上传",
+      icon: "icondashboard"
+    },
+    // noDropdown: true,
+    children: [
+      {
+        path: "upload",
+        meta: {
+          title: "上传",
+          icon: "icondashboard",
+          routerType: "leftmenu"
+        },
+        component: () => import("@/view/upload/index")
+      }
+    ]
+  },
+  {
+    path: "/line",
+    name: "line",
+    component: Layout,
+    meta: {
+      title: "接线图",
+      icon: "icondashboard"
+    },
+    // noDropdown: true,
+    children: [
+      {
+        path: "line",
+        meta: {
+          title: "接线图",
+          icon: "icondashboard",
+          routerType: "leftmenu"
+        },
+        component: () => import("@/view/line/index")
+      }
+    ]
   }
 ];
 

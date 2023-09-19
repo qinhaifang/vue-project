@@ -8,7 +8,10 @@ const user = {
     avatar: "",
     token: getToken("Token"),
     roles: [],
-    browserHeaderTitle: mUtils.getStore("browserHeaderTitle") || "海芳"
+    browserHeaderTitle: mUtils.getStore("browserHeaderTitle") || "海芳",
+    drawhandle: true,
+    //接线图是否被动过
+    drawChange: false
   },
   getters: {
     token: state => state.token,
